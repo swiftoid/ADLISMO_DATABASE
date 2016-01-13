@@ -1,0 +1,372 @@
+Enter file contents here
+-- phpMyAdmin SQL Dump
+-- version 3.5.2.2
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jan 13, 2016 at 10:08 AM
+-- Server version: 10.0.20-MariaDB
+-- PHP Version: 5.2.17
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `u240156617_adlis`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_table`
+--
+
+CREATE TABLE IF NOT EXISTS `customer_table` (
+  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `f_name` varchar(45) NOT NULL,
+  `s_name` varchar(45) NOT NULL,
+  `phone` varchar(45) NOT NULL,
+  `address` varchar(45) NOT NULL,
+  `postcode` varchar(11) NOT NULL,
+  PRIMARY KEY (`customer_id`,`postcode`),
+  UNIQUE KEY `route_route_id` (`postcode`),
+  UNIQUE KEY `route_route_id_2` (`postcode`),
+  UNIQUE KEY `route_route_id_3` (`postcode`),
+  UNIQUE KEY `route_route_id_4` (`postcode`),
+  UNIQUE KEY `route_route_id_5` (`postcode`),
+  KEY `fk_customer_table_route1_idx` (`postcode`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+
+--
+-- Dumping data for table `customer_table`
+--
+
+INSERT INTO `customer_table` (`customer_id`, `f_name`, `s_name`, `phone`, `address`, `postcode`) VALUES
+(1, 'Andy', 'Swift', '1823923979845', '131 Marlbrough Avenue ', 'hu4 uir'),
+(2, 'Dave', 'Gof', '59408673940', '2 Percy Cottages Hull', 'hu4 fgr'),
+(3, 'John', 'doe', '82347562345', '36 Wilson Street Anlaby ', 'Hu5 her'),
+(4, 'Morris', 'Willaims', '45634', '144 winston way Hull', 'hu6 der'),
+(5, 'Keith ', 'Lemon', '35684568', '12 rawlings way hessle', 'Hu8 ffg'),
+(6, 'Mini ', 'Pipes', '6245623456', '123 Shock worth way Hessle', 'Hu8 1de'),
+(7, 'Erica ', 'Blowpipe', '23405782345', '56 Dog Town Way Los Angeles', 'Be4 6hh'),
+(8, 'Tazleen', 'Karmali', '63456456', '131 Marlborough Street Gainsborough ', 'BE3 5rr'),
+(9, 'Mary', 'Goodhead', '098897 2663633', '100 Kingston Road Radcliffe', 'Hu5 fft'),
+(14, 'Mary', 'Maybell-Carter', '2347829', 'Nashville Tennessee ', 'ten1 er5'),
+(10, 'Mike', 'Tyson', '098897 999', 'Folsom Prison ', 'FOl  s0n'),
+(11, 'Jesus ', 'Christ', '093480985', 'On the Cross street Hull', 'hev 1en'),
+(12, 'Johnny ', 'Cash', '092347576', 'Tennessee Grave yard', 'HuT 22f'),
+(13, 'Charles ', 'Mingus', '093457670979', 'Upper West Side China Town NYC', 'NY1 UpC'),
+(15, 'Bob', 'Dylan', '89459086738964', 'Blowing in the Wind street Hull', 'BL1 ITW');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deliveries`
+--
+
+CREATE TABLE IF NOT EXISTS `deliveries` (
+  `delivery_id` int(11) NOT NULL,
+  `date` varchar(45) DEFAULT NULL,
+  `time` time DEFAULT NULL,
+  `van_van_id` int(11) NOT NULL,
+  PRIMARY KEY (`delivery_id`,`van_van_id`),
+  KEY `fk_deliveries_van1_idx` (`van_van_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `deliveries`
+--
+
+INSERT INTO `deliveries` (`delivery_id`, `date`, `time`, `van_van_id`) VALUES
+(1, '12 January 2016 ', '00:00:12', 10),
+(2, '8th June 2016', '00:00:13', 12),
+(3, '13th January 2016 ', '00:00:09', 11),
+(4, '8th June 2016', '00:00:10', 12),
+(5, '12 January 201', '00:00:18', 11),
+(6, '13th January 2016', '00:00:19', 14),
+(7, '16th June 2016', '00:00:22', 14),
+(8, '17th June 2016', '00:00:07', 11),
+(9, '13th May 2016 ', '00:00:14', 12),
+(10, '14th May 2016', '00:00:23', 15);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_table`
+--
+
+CREATE TABLE IF NOT EXISTS `order_table` (
+  `order_id` int(11) NOT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `deliveries_delivery_id` int(11) NOT NULL,
+  PRIMARY KEY (`order_id`,`deliveries_delivery_id`),
+  KEY `fk_order_table_deliveries1_idx` (`deliveries_delivery_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_table`
+--
+
+INSERT INTO `order_table` (`order_id`, `customer_id`, `deliveries_delivery_id`) VALUES
+(1, 1, 1),
+(3, 13, 5),
+(4, 6, 10),
+(2, 8, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_table_has_products`
+--
+
+CREATE TABLE IF NOT EXISTS `order_table_has_products` (
+  `order_table_order_id` int(11) NOT NULL,
+  `products_product_id` int(11) NOT NULL,
+  `quantity` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`order_table_order_id`,`products_product_id`),
+  KEY `fk_order_table_has_products_products1_idx` (`products_product_id`),
+  KEY `fk_order_table_has_products_order_table1_idx` (`order_table_order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_table_has_products`
+--
+
+INSERT INTO `order_table_has_products` (`order_table_order_id`, `products_product_id`, `quantity`) VALUES
+(1, 4, '3'),
+(3, 2, '1'),
+(1, 5, '67'),
+(1, 8, '3'),
+(1, 10, '60'),
+(1, 20, '3'),
+(1, 13, '7'),
+(2, 3, '44'),
+(2, 15, '4'),
+(3, 3, '3'),
+(3, 4, '234'),
+(3, 5, '45'),
+(4, 1, '34'),
+(4, 2, '43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE IF NOT EXISTS `products` (
+  `product_id` varchar(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `price` varchar(12) DEFAULT NULL,
+  `discription` varchar(45) DEFAULT NULL,
+  `store_id` varchar(11) DEFAULT NULL,
+  `product_catagory_prodcat_id` int(11) NOT NULL,
+  `suppliers_supplier_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`,`product_catagory_prodcat_id`,`suppliers_supplier_id`),
+  KEY `fk_products_product_catagory1_idx` (`product_catagory_prodcat_id`),
+  KEY `fk_products_suppliers1_idx` (`suppliers_supplier_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`product_id`, `name`, `price`, `discription`, `store_id`, `product_catagory_prodcat_id`, `suppliers_supplier_id`) VALUES
+('0', 'apple', '00.4', 'golden delicious green apples  ', 'ad3', 2, 21),
+('1', 'Frozen Chips', '0.80', '500g Bag of Frozen Chips', 'ad1', 2, 22),
+('2', 'Pineapple ', '0.80', 'Fruit ', 'ad3', 3, 24),
+('3', 'scarecrow', '200.00', 'A top quality scarecrow to scare crows ', 'ad3', 1, 24),
+('4', 'curry powder', '0.80', 'Pataks ground curry leaves', 'ad3', 2, 21),
+('5', 'milk', '0.78', '1ltr Bottle', 'ad1', 3, 22),
+('6', 'Brown Bread', '1.29', 'Large sliced brown loaf ', 'ad3', 2, 23),
+('7', 'sugar', '0.40', 'white caster sugar 500g', 'ad2', 3, 24),
+('8', 'Dom Perignion  ', '90.00', 'Champagne ', 'ad1', 1, 21),
+('9', 'Frosties ', '1.20', 'Frosties Kellogs Breakfast ', 'ad2', 2, 23),
+('10', 'Spam', '0.20', 'Tinned chopped pork', 'ad3', 1, 21),
+('11', 'Frozen Peas', '0.98', 'Green garden Peas frozen Birdeye', 'ad2', 2, 24),
+('12', 'cheese', '1.69', 'Mozzarella cheese 50g ', 'ad1', 1, 20),
+('13', 'Baked Beans', '0.80', 'Heinz tinned beans 80g', 'ad3', 3, 23),
+('14', 'Tea bags', '1.00', '80 Yorkshire Tea Bags', 'ad3', 2, 21),
+('15', 'banannas', '0.03', 'single ripe banannas', 'ad3', 3, 20),
+('16', 'Caviar', '500.00', 'Wild Baltic Sturgeon Eggs 50g', 'ad2', 1, 22),
+('17', 'Froigrois', '240.00', 'Finet Froigrois from Belounger 20g', 'ad3', 1, 23),
+('18', 'Serrano Ham ', '60.00', '500g Serrano ham Elegant and light ', 'ad1', 1, 23),
+('19', 'Fig Confiture ', '5.00', 'Condiment ', 'ad4', 1, 23),
+('20', 'Honey', '4.00', 'Liquid Honey from heather Bees', 'ad3', 1, 23),
+('21', 'Bottled Water', '0.34', 'Evian Bottled Water', 'ad2', 2, 22),
+('22', 'Mustard', '0.94', 'Whole Grain Mustard', 'ad1', 1, 23),
+('23', 'Favar Beans', '700.00', 'For eating with a fine Cianti', 'ad2', 1, 23),
+('134', 'Haggis', '3.00', 'Scottish Food', 'ad2', 1, 23);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_catagory`
+--
+
+CREATE TABLE IF NOT EXISTS `product_catagory` (
+  `prodcat_id` int(11) NOT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`prodcat_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product_catagory`
+--
+
+INSERT INTO `product_catagory` (`prodcat_id`, `description`) VALUES
+(1, 'Luxury '),
+(2, 'Every Day'),
+(3, 'Basic'),
+(4, 'Clothing'),
+(5, 'Toiletries');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `route`
+--
+
+CREATE TABLE IF NOT EXISTS `route` (
+  `route_id` int(11) NOT NULL,
+  `van_id` int(11) DEFAULT NULL,
+  `delivery_area` varchar(30) NOT NULL,
+  PRIMARY KEY (`route_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `route`
+--
+
+INSERT INTO `route` (`route_id`, `van_id`, `delivery_area`) VALUES
+(0, 10, 'hu5'),
+(1, 11, 'hu6'),
+(2, 12, 'hu7'),
+(3, 13, 'hu8'),
+(4, 14, 'hu9'),
+(5, 15, 'hu10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stock_table`
+--
+
+CREATE TABLE IF NOT EXISTS `stock_table` (
+  `number_in_stock` int(11) DEFAULT NULL,
+  `store_table_store_id` varchar(5) NOT NULL,
+  `products_product_id` int(11) NOT NULL,
+  PRIMARY KEY (`store_table_store_id`,`products_product_id`),
+  KEY `fk_stock_table_store_table1_idx` (`store_table_store_id`),
+  KEY `fk_stock_table_products1_idx` (`products_product_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `stock_table`
+--
+
+INSERT INTO `stock_table` (`number_in_stock`, `store_table_store_id`, `products_product_id`) VALUES
+(100, 'ad1', 8),
+(3000, 'ad2', 1),
+(2355, 'ad1', 2),
+(2, 'ad3', 10),
+(4, 'ad2', 4),
+(900, 'ad3', 7),
+(3, 'ad4', 3),
+(54, 'ad4', 5),
+(0, 'ad2', 6),
+(25634, 'ad3', 9),
+(0, 'ad2', 20),
+(1, 'ad3', 11),
+(2, 'ad2', 12),
+(421334, 'ad1', 13),
+(2, 'ad2', 14),
+(2, 'ad1', 15),
+(3415634, 'ad3', 16),
+(2, 'ad2', 17),
+(7346, 'ad4', 18),
+(0, 'ad2', 21),
+(45, 'ad1', 22);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_table`
+--
+
+CREATE TABLE IF NOT EXISTS `store_table` (
+  `store_id` varchar(11) NOT NULL,
+  `store_name` varchar(45) DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `phone` varchar(45) DEFAULT NULL,
+  `manager_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`store_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `store_table`
+--
+
+INSERT INTO `store_table` (`store_id`, `store_name`, `address`, `phone`, `manager_name`) VALUES
+('ad1', 'Adlismo Hull', '134 Kingston Road Hull', '089994 39473', 'John Parkingson'),
+('ad2', 'Adlismo beverley ', '245 long station drive winter hill beverley', '09987 233455', 'Sue Marks '),
+('ad3', 'Adlismo waterside', '9 falkirk business park grimsby', '0988590 45777', 'barry bethel '),
+('ad4', 'Ceneral Depot ', 'Kingston square London ', '0800 344 999', 'Terry Tibbs');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suppliers`
+--
+
+CREATE TABLE IF NOT EXISTS `suppliers` (
+  `supplier_id` int(11) NOT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `contact` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`supplier_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `suppliers`
+--
+
+INSERT INTO `suppliers` (`supplier_id`, `address`, `contact`) VALUES
+(21, 'St Stevens Business Park London ', '0800 234 444'),
+(22, 'Flat Iron Road Industrial estate Chatham ', NULL),
+(23, '1 Trident Business Park Willerby ', '0988 122 378'),
+(24, '21 Fardale street the dales London', '95888 52345');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `van`
+--
+
+CREATE TABLE IF NOT EXISTS `van` (
+  `van_id` int(11) NOT NULL,
+  `driver_name` varchar(45) DEFAULT NULL,
+  `driver_phone` varchar(20) NOT NULL,
+  PRIMARY KEY (`van_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `van`
+--
+
+INSERT INTO `van` (`van_id`, `driver_name`, `driver_phone`) VALUES
+(10, 'Barry Sheen', '6347378356'),
+(11, 'Sharon Mansell', '35756756'),
+(12, 'Victor Swift', '0998 234 443'),
+(13, 'Jocelyn Swift', '07655 223445'),
+(14, 'Wilson Picket', '08897 233456'),
+(15, 'Aston Barret ', '09987 355 286');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
